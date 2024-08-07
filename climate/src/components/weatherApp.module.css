@@ -3,3 +3,8 @@
   height: 50px;
   margin: 150px auto;
 }
+
+.error {
+  color: red;
+  margin-top: 10px;
+}

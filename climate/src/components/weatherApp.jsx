@@ -6,6 +6,7 @@ import Loading from "./loading";
 
 export default function WeatherApp() {
   const [weather, setWeather] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     loadInfo();
@@ -25,30 +26,41 @@ export default function WeatherApp() {
       const response = await fetch(url);
 
       if (!response.ok) {
+        // Manejo de errores HTTP
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const json = await response.json();
 
+      if (json.error) {
+        // Manejo de errores específicos de la API
+        throw new Error(json.error.message);
+      }
+
       console.log(json); // Imprime los datos en la consola
 
       setTimeout(() => {
         setWeather(json); // Establece el estado del clima después de 2 segundos
+        setError(null); // Limpia el error en caso de éxito
       }, 1500);
     } catch (error) {
       console.error("Error fetching weather data:", error); // Manejo de errores
+      setError(error.message); // Establece el mensaje de error
     }
   }
 
   function handleChangeCity(city) {
     console.log("City changed to:", city); // Verifica si la ciudad está cambiando
     setWeather(null);
+    setError(null); // Limpia el error al cambiar la ciudad
     loadInfo(city);
   }
 
   return (
     <div className={styles.weatherContainer}>
       <WeatherForm onChangeCity={handleChangeCity} />
+      {error && <div className={styles.error}>{error}</div>}{" "}
+      {/* Muestra el error si existe */}
       {weather ? <WeatherMainInfo weather={weather} /> : <Loading />}
     </div>
   );
