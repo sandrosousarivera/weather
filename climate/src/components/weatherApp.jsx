@@ -17,13 +17,9 @@ export default function WeatherApp() {
 
   async function loadInfo(city = "London") {
     try {
-      // URL del proxy y URL de la API combinadas
-      const proxy = "https://cors-anywhere.herokuapp.com/";
-      const apiUrl = `${import.meta.env.VITE_APP_URL}?key=${
+      const url = `https://corsproxy.io/?${import.meta.env.VITE_APP_URL}?key=${
         import.meta.env.VITE_APP_KEY
       }&q=${city}&aqi=no`;
-      const url = `${proxy}${apiUrl}`;
-
       console.log("Fetching URL:", url); // Imprime la URL para verificar
 
       const response = await fetch(url);
