@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import WeatherForm from "./weatherForm";
 import WeatherMainInfo from "./weatherMainInfo";
 import styles from "./weatherApp.module.css";
-import Loading from "./loading"; // Asegúrate de tener este componente
+import Loading from "./loading";
 
 export default function WeatherApp() {
   const [weather, setWeather] = useState(null);
