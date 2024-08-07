@@ -27,7 +27,9 @@ export default function WeatherApp() {
 
       if (!response.ok) {
         // Manejo de errores HTTP
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(
+          `The city you are looking for is not found, try again.`
+        );
       }
 
       const json = await response.json();
